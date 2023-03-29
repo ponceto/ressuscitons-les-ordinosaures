@@ -1,0 +1,144 @@
+.tiny-image {
+    background: black !important;
+    height: 200px !important;
+}
+
+.small-image {
+    background: black !important;
+    height: 250px !important;
+}
+
+.medium-image {
+    background: black !important;
+    height: 300px !important;
+}
+
+.large-image {
+    background: black !important;
+    height: 350px !important;
+}
+
+.huge-image {
+    background: black !important;
+    height: 400px !important;
+}
+
+.tiny-text {
+    font-size: 16px !important;
+}
+
+.small-text {
+    font-size: 24px !important;
+}
+
+.medium-text {
+    font-size: 32px !important;
+}
+
+.large-text {
+    font-size: 48px !important;
+}
+
+.huge-text {
+    font-size: 56px !important;
+}
+
+.white-text {
+    color: #ffffff !important;
+}
+
+.black-text {
+    color: #000000 !important;
+}
+
+.cyan-text {
+    color: #00ffff !important;
+}
+
+.magenta-text {
+    color: #ff00ff !important;
+}
+
+.yellow-text {
+    color: #ffff00 !important;
+}
+
+.red-text {
+    color: #ff2c2d !important;
+}
+
+.green-text {
+    color: #17ff2e !important;
+}
+
+.blue-text {
+    color: #1b91ff !important;
+}
+
+.reveal .fragment.highlight-yellow,
+.reveal .fragment.highlight-current-yellow {
+    opacity: 1;
+    visibility: inherit;
+}
+
+.reveal .fragment.highlight-yellow.visible {
+    color: #ffff00;
+}
+
+.reveal .fragment.highlight-current-yellow.current-fragment {
+    color: #ffff00;
+}
+
+table.about {
+    border: none;
+    font-family: monospace;
+    font-size: smaller;
+}
+
+table.about tr {
+    border: none;
+}
+
+table.about td {
+    border: none;
+}
+
+.color-website {
+    color: #88aaff !important;
+}
+
+.color-dummies {
+    color: #ffec00 !important;
+}
+
+.color-twitter {
+    color: #1d9bf0 !important;
+}
+
+.color-github {
+    color: #f8f8f8 !important;
+}
+
+.color-gitlab {
+    color: #fc6d26 !important;
+}
+
+.color-bitbucket {
+    color: #2684ff !important;
+}
+
+.color-twitch {
+    color: #a970ff !important;
+}
+
+.color-youtube {
+    color: #ff0000 !important;
+}
+
+.is-centered {
+    text-align: center !important;
+}
+
+.is-justified {
+    text-align: justify !important;
+}

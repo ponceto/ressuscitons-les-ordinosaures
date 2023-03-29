@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Ressuscitons les ordinosaures</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Ressuscitons les ordinosaures">
+        <meta name="author" content="Olivier Poncet">
+        <link rel="stylesheet" href="vendor/reveal.js/dist/reset.css">
+        <link rel="stylesheet" href="vendor/reveal.js/dist/reveal.css">
+        <link rel="stylesheet" href="vendor/reveal.js/dist/theme/black.css">
+        <link rel="stylesheet" href="vendor/reveal.js/plugin/highlight/monokai.css">
+        <link rel="stylesheet" href="vendor/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="vendor/custom/css/custom.css">
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+
+<!-- [accueil] begin -->
+<section data-transition="convex" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <h1>Ressuscitons<br>les ordinosaures</h1>
+    <p><span class="red-text">comment</span> <span class="green-text">développer</span> <span class="blue-text">un émulateur</span></p>
+</section>
+<!-- [accueil] end -->
+
+<!-- [psone] begin -->
+<section data-transition="zoom" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <h1>Souvenez-vous</h1>
+    <p>Ce jingle vous dit quelque-chose ?</p>
+    <video data-autoplay src="./assets/audio/psone-startup.mp3" style="display:none;"></video>
+    <p class="fragment fade-up"><img class="r-frame large-image" src="assets/images/console/Sony_PlayStation.png"><br><small>Takafumi Fujisawa</small></p>
+</section>
+<!-- [psone] end -->
+
+<!-- [départ] begin -->
+<section data-transition="zoom" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <h1>Amstrad GPT</h1>
+    <p><img class="r-frame huge-image" src="assets/images/misc/Amstrad_GPT.jpg"></p>
+</section>
+<!-- [départ] end -->
+
+<!-- [introduction] begin -->
+<section data-transition="convex" data-autoslide="4000" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide" data-autoslide="0">
+        <h2>Back to the Future</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Apple II</h3>
+        <p class="medium-text">MOS 6502 (8-bit), 4kb of ram</p>
+        <p class="tiny-text">(release date : Jun. 1977)</p>
+        <p><img class="r-frame large-image" src="assets/images/computer/Apple_II.png"> <img class="r-frame large-image" src="assets/images/cpu/MOS_6502.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Atari VCS 2600</h3>
+        <p class="medium-text">MOS 6507 (8-bit), 128 bytes or ram</p>
+        <p class="tiny-text">(release date : Oct. 1977)</p>
+        <p><img class="r-frame large-image" src="assets/images/console/Atari_VCS_2600.png"> <img class="r-frame large-image" src="assets/images/cpu/MOS_6507.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Sinclair ZX81</h3>
+        <p class="medium-text">Zilog Z80 (8-bit), 1kb of ram</p>
+        <p class="tiny-text">(release date : Mar. 1981)</p>
+        <p><img class="r-frame large-image" src="assets/images/computer/Sinclair_ZX81.png"> <img class="r-frame large-image" src="assets/images/cpu/Zilog_Z80.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>IBM PC</h3>
+        <p class="medium-text">Intel 8088 (16-bit), 16kb of ram</p>
+        <p class="tiny-text">(release date : Aug. 1981)</p>
+        <p><img class="r-frame large-image" src="assets/images/computer/IBM_PC.png"> <img class="r-frame large-image" src="assets/images/cpu/Intel_8088.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Nintendo NES</h3>
+        <p class="medium-text">MOS 6502 (8-bit), 2kb of ram</p>
+        <p class="tiny-text">(release date : Jul. 1983)</p>
+        <p><img class="r-frame large-image" src="assets/images/console/Nintendo_NES.png"> <img class="r-frame large-image" src="assets/images/cpu/MOS_6502.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Amstrad CPC</h3>
+        <p class="medium-text">Zilog Z80 (8-bit), 128kb of ram</p>
+        <p class="tiny-text">(release date : Apr. 1984)</p>
+        <p><img class="r-frame large-image" src="assets/images/computer/Amstrad_CPC_464.png"> <img class="r-frame large-image" src="assets/images/cpu/Zilog_Z80.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Atari ST</h3>
+        <p class="medium-text">Motorola 68000 (16/32-bit), 512kb of ram</p>
+        <p class="tiny-text">(release date : Jun. 1985)</p>
+        <p><img class="r-frame large-image" src="assets/images/computer/Atari_1040ST.png"> <img class="r-frame large-image" src="assets/images/cpu/Motorola_68000.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Commodore Amiga</h3>
+        <p class="medium-text">Motorola 68000 (16/32-bit), 512kb of ram</p>
+        <p class="tiny-text">(release date : Jul. 1985)</p>
+        <p><img class="r-frame large-image" src="assets/images/computer/Commodore_Amiga_500.png"> <img class="r-frame large-image" src="assets/images/cpu/Motorola_68000.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Sega Master System</h3>
+        <p class="medium-text">Zilog Z80 (8-bit), 8kb of ram</p>
+        <p class="tiny-text">(release date : Oct. 1985)</p>
+        <p><img class="r-frame large-image" src="assets/images/console/Sega_Master_System.png"> <img class="r-frame large-image" src="assets/images/cpu/Zilog_Z80.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Sega Mega Drive</h3>
+        <p class="medium-text">Motorola 68000 (16/32-bit), 72kb of ram</p>
+        <p class="tiny-text">(release date : Oct. 1988)</p>
+        <p><img class="r-frame large-image" src="assets/images/console/Sega_Mega_Drive.png"> <img class="r-frame large-image" src="assets/images/cpu/Motorola_68000.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Nintendo SNES</h3>
+        <p class="medium-text">MOS 65C816 (8/16-bit), 128kb of ram</p>
+        <p class="tiny-text">(release date : Nov. 1990)</p>
+        <p><img class="r-frame large-image" src="assets/images/console/Nintendo_SNES.png"> <img class="r-frame large-image" src="assets/images/cpu/MOS_65C816.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Sony PlayStation</h3>
+        <p class="medium-text">MIPS R3051 (32-bit), 2mb of ram</p>
+        <p class="tiny-text">(release date : Dec. 1994)</p>
+        <p><img class="r-frame large-image" src="assets/images/console/Sony_PlayStation.png"> <img class="r-frame large-image" src="assets/images/cpu/MIPS_R3000.png"></p>
+    </section>
+    <section data-transition="slide" data-autoslide="0">
+        <h3>Et tellement d'autres machines !</h3>
+    </section>
+</section>
+<!-- [introduction] end -->
+
+<!-- [différence entre simulateur et émulateur] begin -->
+<section data-transition="convex" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h2>Différence entre<br>simulateur et émulateur</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Un simulateur</h3>
+        <p class="fragment grow"><span class="fragment grow highlight-yellow">est un logiciel</span> <span class="fragment grow highlight-blue">imitant le comportement d'un système</span> <span class="fragment highlight-green">sans réutiliser</span> <span class="fragment highlight-red">les parties originales du système cible</span> (i.e ROMs, logiciels, ...)</p>
+    </section>
+    <section data-transition="slide">
+        <h3>Un simulateur</h3>
+        <p class="fragment grow"><span class="fragment grow highlight-yellow">a pour objectif</span> <span class="fragment grow highlight-blue">de faire croire</span> <span class="fragment highlight-green">à un utilisateur</span> <span class="fragment highlight-red">qu'il utilise un matériel et/ou un logiciel original</span></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Un émulateur</h3>
+        <p class="fragment grow"><span class="fragment grow highlight-yellow">est un logiciel</span> <span class="fragment grow highlight-blue">reproduisant le comportement d'un système</span> <span class="fragment highlight-green">en réutilisant</span> <span class="fragment highlight-red">les parties originales du système cible</span> (i.e ROMs, logiciels, ...)</p>
+    </section>
+    <section data-transition="slide">
+        <h3>Un émulateur</h3>
+        <p class="fragment grow"><span class="fragment grow highlight-yellow">a pour objectif</span> <span class="fragment grow highlight-blue">de faire croire</span> <span class="fragment highlight-green">à un logiciel</span> <span class="fragment highlight-red">qu'il fonctionne sur le matériel original</span></p>
+    </section>
+</section>
+<!-- [différence entre simulateur et émulateur] end -->
+
+<!-- [que peut-on émuler] begin -->
+<section data-transition="convex" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h2>Que peut-on émuler ?</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Des systèmes très variés</h3>
+        <ul>
+            <li class="fragment grow highlight-red">Des ordinateurs</li>
+            <li class="fragment grow highlight-green">Des consoles</li>
+            <li class="fragment grow highlight-blue">Des bornes d'arcade</li>
+            <li class="fragment grow highlight-yellow">Etc.</li>
+        </ul>
+    </section>
+    <section data-transition="slide">
+        <h3>Tout peut-être émulé</h3>
+        <p class="fragment grow"><span class="fragment highlight-yellow">Peu importe le système invité</span><br><span class="fragment highlight-blue">cela dépend</span> <span class="fragment highlight-green">des ressources disponibles</span><br><span class="fragment highlight-red">sur le système hôte</span></p>
+    </section>
+</section>
+<!-- [que peut-on émuler] end -->
+
+<!-- [est-ce légal] begin -->
+<section data-transition="convex" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h2>Est-ce légal ?</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Réponse courte</h3>
+        <p class="fragment fade-up">C'EST LÉGAL</p>
+        <p class="fragment fade-up green-text"><i class="fas fa-2x fa-smile"></i></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Réponse longue</h3>
+        <p class="fragment fade-up">CELA DÉPEND</p>
+        <p class="fragment fade-up yellow-text"><i class="fas fa-2x fa-meh"></i></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Légalement</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">copier un support</span> <span class="fragment highlight-green">et redistribuer cette copie sans l'accord de leur(s) auteur(s)</span><br><span class="fragment highlight-red">EST INTERDIT !</span></p>
+        <p class="fragment fade-up small-text yellow-text">je vous aurai prévenu</p>
+    </section>
+    <section data-transition="slide">
+        <h3>Cependant</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">si le copyright</span> <span class="fragment highlight-green">a expiré</span><br><span class="fragment highlight-red">la copie est autorisée !</span></p>
+        <p class="fragment fade-up small-text yellow-text">enfin en général</p>
+    </section>
+    <section data-transition="slide">
+        <h3>Néanmoins</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Certains éditeurs</span> <span class="fragment highlight-green">ont autorisé la redistribution</span><br><span class="fragment highlight-red">de leur propriété intellectuelle</span></p>
+        <p class="fragment fade-up yellow-text medium-text">&ldquo; sous certaines conditions &rdquo;</p>
+    </section>
+</section>
+<!-- [est-ce légal] end -->
+
+<!-- [se préparer] begin -->
+<section data-transition="convex" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h2>Se préparer</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Identifiez votre cible</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">know</span> <span class="fragment highlight-green">your</span> <span class="fragment highlight-red">foe</span></p>
+        <p class="fragment fade-up small-text yellow-text">&ldquo; ce qui va sans dire, va mieux en le disant &rdquo;</p>
+        <p><img class="r-frame large-image" src="assets/images/computer/Amstrad_CPC_464.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Récupérez</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">des livres</span>, <span class="fragment highlight-green">des documents</span>, <span class="fragment highlight-red">etc.</span></p>
+        <p class="fragment fade-up small-text yellow-text">dénichez les ouvrages de référence, des documents secrets, etc ...</p>
+        <p><img class="r-frame large-image" src="assets/images/book/amstrad-cpc.png"> <img class="r-frame large-image" src="assets/images/book/z80.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Collectez</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">des schémas</span>, <span class="fragment highlight-green">des infos</span>, <span class="fragment highlight-red">etc.</span></p>
+        <p class="fragment fade-up small-text yellow-text">mettez la main sur des spécifications, des service manuals, ...</p>
+        <p><img class="r-frame large-image" src="assets/images/manual/cpc464.png"> <img class="r-frame large-image" src="assets/images/manual/ctm640.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Faites</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">du</span> <span class="fragment highlight-green">reverse</span> <span class="fragment highlight-red">engineering</span></p>
+        <p class="fragment fade-up small-text yellow-text">si c'est nécessaire et si vous avez les compétences en éléctronique</p>
+        <p><img class="r-frame large-image" src="assets/images/manual/amstrad-cpc-motherboard.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Choisissez</h3>
+        <p class="fragment grow"><span class="fragment highlight-green">votre système d'exploitation</span></p>
+        <p class="fragment fade-up small-text yellow-text">ou plusieurs mais plus complexe à développer</p>
+        <p><img class="r-frame large-image" src="assets/images/dev/choose-your-operating-system.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Choisissez</h3>
+        <p class="fragment grow"><span class="fragment highlight-green">votre langage de programmation</span></p>
+        <p class="fragment fade-up small-text yellow-text">de préférence un langage compilé pour les performances</p>
+        <p><img class="r-frame large-image" src="assets/images/dev/choose-your-programming-language.png"></p>
+    </section>
+</section>
+<!-- [se préparer] end -->
+
+<!-- [architecture d'un émulateur] begin -->
+<section data-transition="convex" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h2>Architecture d'un émulateur</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Cinq sous-systèmes principaux</h3>
+        <p class="fragment fade-up red-text">1. sous-système central</p>
+        <p class="fragment fade-up green-text">2. sous-système vidéo</p>
+        <p class="fragment fade-up blue-text">3. sous-système audio</p>
+        <p class="fragment fade-up cyan-text">4. sous-système d'entrées</p>
+        <p class="fragment fade-up magenta-text">5. sous-système périphériques</p>
+        <p class="fragment fade-up yellow-text small-text">en omettant bien sûr l'interface utilisateur</p>
+    </section>
+</section>
+<!-- [architecture d'un émulateur] end -->
+
+<!-- [sous-système central] begin -->
+<section data-transition="convex" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h2>Sous-système central</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>La RAM / La ROM</h3>
+        <p class="fragment grow"><span class="fragment highlight-green">c'est votre</span> <span class="fragment highlight-blue">mémoire</span> <span class="fragment highlight-red">de travail</span></p>
+        <p class="fragment fade-up yellow-text small-text">c'est quasiment la partie la plus facile à développer</p>
+        <p><img class="r-frame large-image" src="assets/images/ram/RAM_4164.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>La RAM / La ROM</h3>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+class RamBank
+{
+public: // public interface
+             RamBank();
+    virtual ~RamBank();
+
+    auto data() -> uint8_t*
+    {
+        return _data;
+    }
+
+protected: // protected data
+    uint8_t _data[16384];
+};
+        </code></pre>
+    </section>
+    <section data-transition="slide">
+        <h3>Le microprocesseur</h3>
+        <p class="fragment grow"><span class="fragment highlight-green">c'est le coeur</span> <span class="fragment highlight-blue">de</span> <span class="fragment highlight-red">votre émulateur</span></p>
+        <p class="fragment fade-up yellow-text small-text">Spoiler alert : c'est la partie la plus complexe à développer</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/Zilog_Z80.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Le microprocesseur</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Son architecture</span> <span class="fragment highlight-green">va influer</span><br><span class="fragment highlight-red">sur la complexité de votre code</span></p>
+        <p class="fragment fade-up yellow-text small-text">Et de loin !</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/Zilog_Z80_Die.png"> <img class="r-frame large-image" src="assets/images/cpu/Zilog_Z80_Architecture.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Une histoire d'indien</h3>
+        <p class="fragment grow"><span class="fragment highlight-red">Grand indien</span> <span class="fragment highlight-blue">ou</span> <span class="fragment highlight-green">Petit indien</span> ?</p>
+        <p class="fragment fade-up yellow-text small-text">That's the question !</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/Endianess_Register.png"> <img class="r-frame large-image" src="assets/images/cpu/Endianess_Memory.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Les drapeaux</h3>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+struct Z80_Flags
+{
+    static constexpr uint8_t SF = 0x80; /* sign                   */
+    static constexpr uint8_t ZF = 0x40; /* zero                   */
+    static constexpr uint8_t XF = 0x20; /* undocumented flag      */
+    static constexpr uint8_t HF = 0x10; /* halfcarry / halfborrow */
+    static constexpr uint8_t YF = 0x08; /* undocumented flag      */
+    static constexpr uint8_t PF = 0x04; /* parity                 */
+    static constexpr uint8_t OF = 0x04; /* overflow               */
+    static constexpr uint8_t NF = 0x02; /* add / sub              */
+    static constexpr uint8_t CF = 0x01; /* carry / borrow         */
+};
+        </code></pre>
+    </section>
+    <section data-transition="slide">
+        <h3>Les drapeaux internes</h3>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+struct Z80_InternalFlags
+{
+    static constexpr uint8_t HAS_HLT  = 0x80; /* cpu is halted          */
+    static constexpr uint8_t HAS_NMI  = 0x40; /* pending nmi            */
+    static constexpr uint8_t HAS_INT  = 0x20; /* pending int            */
+    static constexpr uint8_t HAS_XYZ  = 0x10; /* not used               */
+    static constexpr uint8_t HAS_IM2  = 0x08; /* interrupt mode #2      */
+    static constexpr uint8_t HAS_IM1  = 0x04; /* interrupt mode #1      */
+    static constexpr uint8_t HAS_IFF2 = 0x02; /* interrupt flip-flop #2 */
+    static constexpr uint8_t HAS_IFF1 = 0x01; /* interrupt flip-flop #1 */
+};
+        </code></pre>
+    </section>
+    <section data-transition="slide">
+        <h3>Modélisation d'un registre</h3>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+struct Z80_Register
+{
+    union
+    {
+        uint32_t quad;
+#ifdef HOST_IS_BIG_ENDIAN
+        struct { uint16_t    h,    l; } word;
+        struct { uint8_t  a, b, c, d; } byte;
+#endif
+#ifdef HOST_IS_LITTLE_ENDIAN
+        struct { uint16_t l,    h   ; } word;
+        struct { uint8_t  d, c, b, a; } byte;
+#endif
+    } u;
+};
+        </code></pre>
+    </section>
+    <section data-transition="slide">
+        <h3>Modélisation de l'état</h3>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+struct Z80_State
+{
+    struct
+    {
+        Z80_Register WZ; /* WZ hidden register    */
+        Z80_Register AF; /* AF and AF'            */
+        Z80_Register BC; /* BC and BC'            */
+        Z80_Register DE; /* DE and DE'            */
+        Z80_Register HL; /* HL and HL'            */
+        Z80_Register IX; /* IX Index              */
+        Z80_Register IY; /* IY Index              */
+        Z80_Register SP; /* Stack Pointer         */
+        Z80_Register PC; /* Program Counter       */
+        Z80_Register IR; /* Interrupt and Refresh */
+        Z80_Register IF; /* IFF, IM and Control   */
+    } registers;
+
+    struct
+    {
+        uint32_t m_cycles; /* m-cycles counter */
+        uint32_t t_states; /* t-states counter */
+        int32_t  ccounter; /* internal counter */
+    } counters;
+};
+        </code></pre>
+    </section>
+    <section data-transition="slide">
+        <h3>Modélisation de l'interface</h3>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+class Z80_Interface
+{
+public: // public interface
+    virtual uint8_t z80_mreq_m1(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
+    virtual uint8_t z80_mreq_rd(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
+    virtual uint8_t z80_mreq_wr(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
+    virtual uint8_t z80_iorq_m1(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
+    virtual uint8_t z80_iorq_rd(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
+    virtual uint8_t z80_iorq_wr(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
+};
+        </code></pre>
+    </section>
+    <section data-transition="slide">
+        <h3>Modélisation du processeur</h3>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+class Z80_Processor
+{
+public: // public interface
+    Z80_Processor(Z80_Interface& interface)
+        : _state()
+        , _interface(interface)
+    {
+    }
+
+    void run();
+
+    void reset();
+
+protected: // protected data
+    Z80_State      _state;
+    Z80_Interface& _interface;
+};
+        </code></pre>
+    </section>
+    <section data-transition="slide">
+        <h3>Executer le code de l'invité</h3>
+        <p class="fragment grow highlight-yellow">Il existe trois grandes techniques</p>
+        <ul>
+            <li class="fragment grow highlight-blue">L'interpreteur</li>
+            <li class="fragment grow highlight-green">La translation statique de code</li>
+            <li class="fragment grow highlight-red">La translation dynamique de code</li>
+        </ul>
+    </section>
+    <section data-transition="slide">
+        <h3>L'interpreteur</h3>
+        <p class="fragment grow highlight-yellow">Cette technique est la plus simple à mettre en oeuvre</p>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+void Z80_Processor::run()
+{
+    const uint8_t opcode = _interface.z80_mreq_m1(*this, _state.registers.PC.u.word.l++, 0x00);
+
+    switch(opcode) {
+        case 0x00: // nop
+            _state.counters.m_cycles += 1;
+            _state.counters.t_states += 4;
+            _state.counters.ccounter -= 4;
+            break;
+        case 0x01: // ...
+        //  ...
+            break;
+        case 0x78: // ld a,b
+            _state.registers.AF.u.byte.c = _state.registers.BC.u.byte.c;
+            _state.counters.m_cycles += 1;
+            _state.counters.t_states += 4;
+            _state.counters.ccounter -= 4;
+            break;
+        case 0xff: // ...
+        //  ...
+            break;
+        default:
+            break;
+    }
+}
+        </code></pre>
+    </section>
+    <section data-transition="slide">
+        <h3>La translation statique de code</h3>
+        <p class="fragment grow highlight-yellow">Cette technique combine un interpreteur et un recompilateur statique</p>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+void Z80_Processor::recompile(InputBlock& guest, BasicBlock& host)
+{
+    switch(guest.read()) {
+        case 0x00: // nop
+            host.emit_nop(guest.address(), 1, 4);
+            break;
+        // ....
+        // ....
+        // ....
+        case 0x78: // ld a,b
+            host.emit_mov(guest.address(), REG_A, REG_B, 1, 4);
+            break;
+        // ....
+        // ....
+        // ....
+        default:
+            break;
+    }
+}
+
+void Z80_Processor::run();
+{
+    // on récupère la prochaine addresse
+    const uint16_t address = _state.registers.PC.u.word.l
+
+    // on récupère un block associé
+    const BasicBlock& block(BasicBlockCache.getBasicBlock(address));
+
+    // si le bloc est valide, on exécute le code recompilé
+    // sinon on utilise l'interpreteur comme méthode fallback
+    if(block.isValid()) {
+        block.execute();
+    }
+    else {
+        runInterpreter();
+    }
+    ...
+}
+        </code></pre>
+    </section>
+    <section data-transition="slide">
+        <h3>La translation dynamique de code</h3>
+        <p class="fragment grow highlight-yellow">Cette technique combine un interpreteur et un recompilateur dynamique</p>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+void Z80_Processor::run();
+{
+    // on récupère la prochaine addresse
+    const uint16_t address = _state.registers.PC.u.word.l
+
+    // on récupère un block associé
+    const BasicBlock& block(BasicBlockCache.getBasicBlock(address));
+
+    // si le bloc est valide, on exécute le code recompilé
+    // sinon on recompile à la volée le code présent dans la mémoire
+    if(block.isValid()) {
+        block.execute();
+    }
+    else {
+        recompileAndExecute(BasicBlockCache.createBasicBlock(address));
+    }
+    ...
+}
+        </code></pre>
+    </section>
+</section>
+<!-- [sous-système central] end -->
+
+<!-- [sous-système vidéo] begin -->
+<section data-transition="convex" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h2>Sous-système vidéo</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>la frame-time</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">L'émulateur</span> <span class="fragment highlight-green">est toujours synchronisé</span><br><span class="fragment highlight-red">sur la durée d'une image</span></p>
+        <p class="fragment fade-up yellow-text small-text">Soit en général 20.00ms (50Hz) ou 16,67ms (60Hz)</p>
+        <p><img class="r-frame large-image" src="assets/images/computer/Amstrad_CPC_464.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Le frame-skipping</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">L'émulateur</span> <span class="fragment highlight-green">peut parfois omettre</span><br><span class="fragment highlight-red">de dessiner quelques images</span></p>
+        <p class="fragment fade-up yellow-text small-text">Cela permet de garder une émulation temps réel sans dégradation perceptible</p>
+        <p><img class="r-frame large-image" src="assets/images/computer/Amstrad_CPC_464.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Cathode Ray Tube Controller</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Le controlleur vidéo</span> <span class="fragment highlight-green">est responsable</span><br><span class="fragment highlight-red">des signaux de synchronisation</span></p>
+        <p><img class="r-frame large-image" src="assets/images/video/CRTC_signals.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Video Gate Array</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">La video gate-array</span> <span class="fragment highlight-green">est responsable</span><br><span class="fragment highlight-red">des signaux vidéo</span></p>
+        <p><img class="r-frame large-image" src="assets/images/video/VGA_signals.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Video Display Processor</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Le video display processor</span> <span class="fragment highlight-green">est responsable</span><br><span class="fragment highlight-red">des signaux de synchronisation et vidéo</span></p>
+        <p><img class="r-frame large-image" src="assets/images/video/VDP_diagram.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Des composants simples</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Ce sont</span> <span class="fragment highlight-green">de simples</span> <span class="fragment highlight-red">machines à états</span></p>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+void mc6845_clock(MC6845* mc6845)
+{
+  int old_h_sync = mc6845->h_sync;
+  int old_v_sync = mc6845->v_sync;
+
+  if(mc6845->h_sync_counter > 0) {
+    if(--mc6845->h_sync_counter == 0) {
+      mc6845->h_sync = 0;
+    }
+  }
+  if(++mc6845->h_counter == (mc6845->reg_file[0] + 1)) { /* Horiz. Total */
+    mc6845->h_counter = 0;
+    if(mc6845->v_sync_counter > 0) {
+      if(--mc6845->v_sync_counter == 0) {
+        mc6845->v_sync = 0;
+      }
+    }
+    if(++mc6845->r_counter == (mc6845->reg_file[9] + 1)) { /* Raster Total */
+      mc6845->r_counter = 0;
+      if(++mc6845->v_counter == (mc6845->reg_file[4] + 1)) { /* Verti. Total */
+        mc6845->v_counter = 0;
+      }
+    }
+  }
+  if((mc6845->h_sync == 0) && (mc6845->h_counter == mc6845->reg_file[2])) { /* Horiz. Sync Pos. */
+    mc6845->h_sync = 1;
+    if((mc6845->h_sync_counter = (mc6845->reg_file[3] >> 0) & 0x0f) == 0) {
+      mc6845->h_sync_counter = 16;
+    }
+  }
+  if((mc6845->v_sync == 0) && (mc6845->v_counter == mc6845->reg_file[7])) { /* Verti. Sync Pos. */
+    mc6845->v_sync = 1;
+    if((mc6845->v_sync_counter = (mc6845->reg_file[3] >> 4) & 0x0f) == 0) {
+      mc6845->v_sync_counter = 16;
+    }
+  }
+  if(mc6845->v_sync != old_v_sync) {
+    (*mc6845->vsync)(mc6845);
+  }
+  if(mc6845->h_sync != old_h_sync) {
+    (*mc6845->hsync)(mc6845);
+  }
+}
+        </code></pre>
+    </section>
+    <section data-transition="slide">
+        <h3>Le blitter</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Permet de générer l'image</span><br><span class="fragment highlight-green">de l'invité</span> <span class="fragment highlight-red">vers l'hôte</span></p>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+static void amstrad_cpc_paint_08bpp(AMSTRAD_CPC_EMULATOR *self)
+{
+  XcpcBlitter *blitter = self->blitter;
+  GdevMC6845 *mc6845 = self->mc6845;
+  GdevGArray *garray = self->garray;
+  unsigned int sa = ((mc6845->reg_file[12] << 8) | mc6845->reg_file[13]);
+  unsigned int hd = (mc6845->reg_file[1] < 48 ? mc6845->reg_file[1] : 48);
+  unsigned int hp = ((XCPC_BLITTER_WIDTH >> 0) - (hd << 4)) >> 1;
+  unsigned int mr = mc6845->reg_file[9] + 1;
+  unsigned int vt = mc6845->reg_file[4] + 1;
+  unsigned int vd = (mc6845->reg_file[6] < 39 ? mc6845->reg_file[6] : 39);
+  unsigned int vp = ((XCPC_BLITTER_HEIGHT >> 1) - (vd * mr)) >> 1;
+  struct _scanline *sl = NULL;
+  guint8 *dst = (guint8 *) blitter->image->data, *nxt = dst;
+  guint8 pixel;
+  unsigned int cx, cy, ra;
+  guint16 addr;
+  guint16 bank;
+  guint16 disp;
+  guint8 data;
+
+  sl = &self->scanline[(vt * mr) - (1 * vp)];
+  for(cy = 0; cy < vp; cy++) {
+    nxt += XCPC_BLITTER_WIDTH;
+    pixel = sl->ink[16];
+    for(cx = 0; cx < XCPC_BLITTER_WIDTH; cx++) {
+      *dst++ = *nxt++ = pixel;
+    }
+    dst = nxt; sl++;
+  }
+  sl = &self->scanline[6];
+  for(cy = 0; cy < vd; cy++) {
+    for(ra = 0; ra < mr; ra++) {
+      nxt += XCPC_BLITTER_WIDTH;
+      switch(sl->mode) {
+        case 0x00:
+          pixel = sl->ink[16];
+          for(cx = 0; cx < hp; cx++) {
+            *dst++ = *nxt++ = pixel;
+          }
+          for(cx = 0; cx < hd; cx++) {
+            addr = ((sa & 0x3000) << 2) | ((ra & 0x0007) << 11) | (((sa + cx) & 0x03ff) << 1);
+            bank = (addr >> 14);
+            disp = (addr & 0x3fff);
+            /* pixel 0 */
+            data = self->ram_bank[bank]->data[disp | 0];
+            data = garray->mode0[data];
+            pixel = sl->ink[data & 0x0f];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            /* pixel 1 */
+            data >>= 4;
+            pixel = sl->ink[data & 0x0f];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            /* pixel 0 */
+            data = self->ram_bank[bank]->data[disp | 1];
+            data = garray->mode0[data];
+            pixel = sl->ink[data & 0x0f];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            /* pixel 1 */
+            data >>= 4;
+            pixel = sl->ink[data & 0x0f];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+          }
+          pixel = sl->ink[16];
+          for(cx = 0; cx < hp; cx++) {
+            *dst++ = *nxt++ = pixel;
+          }
+          break;
+        case 0x01:
+          pixel = sl->ink[16];
+          for(cx = 0; cx < hp; cx++) {
+            *dst++ = *nxt++ = pixel;
+          }
+          for(cx = 0; cx < hd; cx++) {
+            addr = ((sa & 0x3000) << 2) | ((ra & 0x0007) << 11) | (((sa + cx) & 0x03ff) << 1);
+            bank = (addr >> 14);
+            disp = (addr & 0x3fff);
+            /* pixel 0 */
+            data = self->ram_bank[bank]->data[disp | 0];
+            data = garray->mode1[data];
+            pixel = sl->ink[data & 0x03];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            /* pixel 1 */
+            data >>= 2;
+            pixel = sl->ink[data & 0x03];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            /* pixel 2 */
+            data >>= 2;
+            pixel = sl->ink[data & 0x03];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            /* pixel 3 */
+            data >>= 2;
+            pixel = sl->ink[data & 0x03];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            /* pixel 0 */
+            data = self->ram_bank[bank]->data[disp | 1];
+            data = garray->mode1[data];
+            pixel = sl->ink[data & 0x03];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            /* pixel 1 */
+            data >>= 2;
+            pixel = sl->ink[data & 0x03];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            /* pixel 2 */
+            data >>= 2;
+            pixel = sl->ink[data & 0x03];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+            /* pixel 3 */
+            data >>= 2;
+            pixel = sl->ink[data & 0x03];
+            *dst++ = *nxt++ = pixel;
+            *dst++ = *nxt++ = pixel;
+          }
+          pixel = sl->ink[16];
+          for(cx = 0; cx < hp; cx++) {
+            *dst++ = *nxt++ = pixel;
+          }
+          break;
+        case 0x02:
+          pixel = sl->ink[16];
+          for(cx = 0; cx < hp; cx++) {
+            *dst++ = *nxt++ = pixel;
+          }
+          for(cx = 0; cx < hd; cx++) {
+            addr = ((sa & 0x3000) << 2) | ((ra & 0x0007) << 11) | (((sa + cx) & 0x03ff) << 1);
+            bank = (addr >> 14);
+            disp = (addr & 0x3fff);
+            /* pixel 0 */
+            data = self->ram_bank[bank]->data[disp | 0];
+            data = garray->mode2[data];
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 1 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 2 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 3 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 4 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 5 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 6 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 7 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 0 */
+            data = self->ram_bank[bank]->data[disp | 1];
+            data = garray->mode2[data];
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 1 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 2 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 3 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 4 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 5 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 6 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+            /* pixel 7 */
+            data >>= 1;
+            pixel = sl->ink[data & 0x01];
+            *dst++ = *nxt++ = pixel;
+          }
+          pixel = sl->ink[16];
+          for(cx = 0; cx < hp; cx++) {
+            *dst++ = *nxt++ = pixel;
+          }
+          break;
+      }
+      dst = nxt; sl++;
+    }
+    sa += hd;
+  }
+  sl = &self->scanline[(vd * mr) + (0 * vp)];
+  for(cy = 0; cy < vp; cy++) {
+    nxt += XCPC_BLITTER_WIDTH;
+    pixel = sl->ink[16];
+    for(cx = 0; cx < XCPC_BLITTER_WIDTH; cx++) {
+      *dst++ = *nxt++ = pixel;
+    }
+    dst = nxt; sl++;
+  }
+  if(settings.no_fps == FALSE) {
+    char *str = self->stats; int len = 0;
+    guint8 fg = blitter->palette[garray->ink[0x01]].pixel;
+    guint8 bg = blitter->palette[garray->ink[0x10]].pixel;
+    guint8 *pt0 = (guint8 *) ((guint8 *) blitter->image->data + ((blitter->image->height - 9) * blitter->image->bytes_per_line));
+    while(*str != 0) {
+      guint8 *pt1 = pt0;
+      for(cy = 0; cy < 8; cy++) {
+        guint8 *pt2 = pt1;
+        data = font_bits[((*str & 0x7f) << 3) + cy];
+        for(cx = 0; cx < 8; cx++) {
+          *pt2++ = (data & 0x01 ? fg : bg); data >>= 1;
+        }
+        pt1 = (guint8 *) (((guint8 *) pt1) + blitter->image->bytes_per_line);
+      }
+      pt0 += 8; str++; len++;
+    }
+  }
+  (void) xcpc_blitter_put_image(self->blitter);
+}
+        </code></pre>
+    </section>
+</section>
+<!-- [sous-système vidéo] end -->
+
+<!-- [sous-système audio] begin -->
+<section data-transition="convex" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h2>Sous-système audio</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Le sample-rate</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">L'émulateur</span> <span class="fragment highlight-green">doit toujours garder</span><br><span class="fragment highlight-red">un sample rate constant</span></p>
+        <p class="fragment fade-up yellow-text small-text">En général de 48000Hz, 44100Hz, 22050Hz ou 11025Hz</p>
+        <p><img class="r-frame large-image" src="assets/images/computer/Amstrad_CPC_464.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Psychoacoustique</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">L'émulateur</span> <span class="fragment highlight-green">ne peut pas omettre</span><br><span class="fragment highlight-red">des échantillons</span></p>
+        <p class="fragment fade-up yellow-text small-text">L'oreille humaine est très sensible à la dégradation du son</p>
+        <p><img class="r-frame large-image" src="assets/images/computer/Amstrad_CPC_464.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Programmable Sound Generator</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Le programmable sound generator</span> <span class="fragment highlight-green">est responsable</span><br><span class="fragment highlight-red">de la génération du son</span></p>
+        <p><img class="r-frame large-image" src="assets/images/audio/PSG_AY_3_8910.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Des composants simples</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Ce sont</span> <span class="fragment highlight-green">de simples</span> <span class="fragment highlight-red">machines à états</span></p>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+void ay8910_device::sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples)
+{
+	stream_sample_t *buf[NUM_CHANNELS];
+	tone_t *tone;
+	envelope_t *envelope;
+
+	buf[0] = outputs[0];
+	buf[1] = nullptr;
+	buf[2] = nullptr;
+	if (m_streams == NUM_CHANNELS)
+	{
+		buf[1] = outputs[1];
+		buf[2] = outputs[2];
+	}
+
+	/* hack to prevent us from hanging when starting filtered outputs */
+	if (!m_ready)
+	{
+		for (int chan = 0; chan < NUM_CHANNELS; chan++)
+			if (buf[chan] != nullptr)
+				memset(buf[chan], 0, samples * sizeof(*buf[chan]));
+	}
+
+	/* The 8910 has three outputs, each output is the mix of one of the three */
+	/* tone generators and of the (single) noise generator. The two are mixed */
+	/* BEFORE going into the DAC. The formula to mix each channel is: */
+	/* (ToneOn | ToneDisable) & (NoiseOn | NoiseDisable). */
+	/* Note that this means that if both tone and noise are disabled, the output */
+	/* is 1, not 0, and can be modulated changing the volume. */
+
+	/* buffering loop */
+	while (samples)
+	{
+		for (int chan = 0; chan < NUM_CHANNELS; chan++)
+		{
+			tone = &m_tone[chan];
+			tone->count++;
+			if (tone->count >= tone->period)
+			{
+				tone->duty_cycle = (tone->duty_cycle - 1) & 0x1f;
+				tone->output = (m_feature & PSG_HAS_EXPANDED_MODE) ? BIT(duty_cycle[tone_duty(tone)], tone->duty_cycle) : BIT(tone->duty_cycle, 0);
+				tone->count = 0;
+			}
+		}
+
+		m_count_noise++;
+		if (m_count_noise >= noise_period())
+		{
+			/* toggle the prescaler output. Noise is no different to
+			 * channels.
+			 */
+			m_count_noise = 0;
+
+			if (!m_prescale_noise)
+			{
+				/* The Random Number Generator of the 8910 is a 17-bit shift */
+				/* register. The input to the shift register is bit0 XOR bit3 */
+				/* (bit0 is the output). This was verified on AY-3-8910 and YM2149 chips. */
+
+				// TODO : get actually algorithm for AY8930
+				m_rng ^= (((m_rng & 1) ^ ((m_rng >> 3) & 1)) << 17);
+				m_rng >>= 1;
+				m_prescale_noise = (m_feature & PSG_HAS_EXPANDED_MODE) ? 16 : 1;
+			}
+			m_prescale_noise--;
+		}
+
+		for (int chan = 0; chan < NUM_CHANNELS; chan++)
+		{
+			tone = &m_tone[chan];
+			m_vol_enabled[chan] = (tone->output | tone_enable(chan)) & (noise_output() | noise_enable(chan));
+		}
+
+		/* update envelope */
+		for (int chan = 0; chan < NUM_CHANNELS; chan++)
+		{
+			envelope = &m_envelope[chan];
+			if (envelope->holding == 0)
+			{
+				const u32 period = envelope->period * m_step;
+				envelope->count++;
+				if (envelope->count >= period)
+				{
+					envelope->count = 0;
+					envelope->step--;
+
+					/* check envelope current position */
+					if (envelope->step < 0)
+					{
+						if (envelope->hold)
+						{
+							if (envelope->alternate)
+								envelope->attack ^= m_env_step_mask;
+							envelope->holding = 1;
+							envelope->step = 0;
+						}
+						else
+						{
+							/* if CountEnv has looped an odd number of times (usually 1), */
+							/* invert the output. */
+							if (envelope->alternate && (envelope->step & (m_env_step_mask + 1)))
+								envelope->attack ^= m_env_step_mask;
+
+							envelope->step &= m_env_step_mask;
+						}
+					}
+
+				}
+			}
+			envelope->volume = (envelope->step ^ envelope->attack);
+		}
+
+		if (m_streams == 3)
+		{
+			for (int chan = 0; chan < NUM_CHANNELS; chan++)
+			{
+				tone = &m_tone[chan];
+				if (tone_envelope(tone) != 0)
+				{
+					envelope = &m_envelope[get_envelope_chan(chan)];
+					u32 env_volume = envelope->volume;
+					if (m_feature & PSG_HAS_EXPANDED_MODE)
+					{
+						if (!is_expanded_mode())
+						{
+							env_volume >>= 1;
+							if (m_feature & PSG_EXTENDED_ENVELOPE) // AY8914 Has a two bit tone_envelope field
+								*(buf[chan]++) = m_vol_table[chan][m_vol_enabled[chan] ? env_volume >> (3-tone_envelope(tone)) : 0];
+							else
+								*(buf[chan]++) = m_vol_table[chan][m_vol_enabled[chan] ? env_volume : 0];
+						}
+						else
+						{
+							if (m_feature & PSG_EXTENDED_ENVELOPE) // AY8914 Has a two bit tone_envelope field
+								*(buf[chan]++) = m_env_table[chan][m_vol_enabled[chan] ? env_volume >> (3-tone_envelope(tone)) : 0];
+							else
+								*(buf[chan]++) = m_env_table[chan][m_vol_enabled[chan] ? env_volume : 0];
+						}
+					}
+					else
+					{
+						if (m_feature & PSG_EXTENDED_ENVELOPE) // AY8914 Has a two bit tone_envelope field
+							*(buf[chan]++) = m_env_table[chan][m_vol_enabled[chan] ? env_volume >> (3-tone_envelope(tone)) : 0];
+						else
+							*(buf[chan]++) = m_env_table[chan][m_vol_enabled[chan] ? env_volume : 0];
+					}
+				}
+				else
+				{
+					if (is_expanded_mode())
+						*(buf[chan]++) = m_env_table[chan][m_vol_enabled[chan] ? tone_volume(tone) : 0];
+					else
+						*(buf[chan]++) = m_vol_table[chan][m_vol_enabled[chan] ? tone_volume(tone) : 0];
+				}
+			}
+		}
+		else
+		{
+			*(buf[0]++) = mix_3D();
+		}
+		samples--;
+	}
+}
+        </code></pre>
+    </section>
+</section>
+<!-- [sous-système audio] end -->
+
+<!-- [sous-système d'entrées] begin -->
+<section data-transition="convex" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h2>Sous-système d'entrées</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Le clavier, le joystick, la souris</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Ce qui</span> <span class="fragment highlight-green">nous relie</span> <span class="fragment highlight-red">à la machine</span></p>
+        <p><img class="r-frame large-image" src="assets/images/input/CPC_keyboard.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>De simples signaux électriques</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Transposer les événements</span><br><span class="fragment highlight-green">de l'hôte</span> <span class="fragment highlight-red">vers l'invité</span></p>
+        <p><img class="r-frame large-image" src="assets/images/input/CPC_keyboard_matrix.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Programmable Peripheral Interface</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Permet de</span> <span class="fragment highlight-green">multiplier et multiplexer</span> <span class="fragment highlight-red">les entrées/sorties</span></p>
+        <p><img class="r-frame large-image" src="assets/images/input/PPI_8255.png"></p>
+    </section>
+</section>
+<!-- [sous-système d'entrées] end -->
+
+<!-- [sous-système périphériques] begin -->
+<section data-transition="convex" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h2>Sous-système périphériques</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Cassette Tape Recorder</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Le support</span> <span class="fragment highlight-green">de stockage de masse</span> <span class="fragment highlight-red">le plus répandu</span></p>
+        <p class="fragment fade-up small-text yellow-text">enfin ... au début des années 80 !</p>
+        <p><img class="r-frame large-image" src="assets/images/input/CPC_ctr.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Floppy Disc Drive</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Le support</span> <span class="fragment highlight-green">de stockage de masse</span> <span class="fragment highlight-red">le plus versatile</span></p>
+        <p class="fragment fade-up small-text yellow-text">jusque dans les années 90 !</p>
+        <p><img class="r-frame large-image" src="assets/images/input/CPC_fdd.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Cartridge</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Le support</span> <span class="fragment highlight-green">de stockage de masse</span> <span class="fragment highlight-red">des consoles</span></p>
+        <p class="fragment fade-up small-text yellow-text">jusque dans les années 2000 !</p>
+        <p><img class="r-frame large-image" src="assets/images/input/CPC_cartridge.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Optical Disc</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Le support</span> <span class="fragment highlight-green">de stockage de masse</span> <span class="fragment highlight-red">le plus utilisé</span></p>
+        <p class="fragment fade-up small-text yellow-text">depuis le milieu des années 90 !</p>
+        <p><img class="r-frame large-image" src="assets/images/input/SEGA_megacd.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Des composants variés</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Ils sont</span> <span class="fragment highlight-green">de simples à moyennement difficiles</span> <span class="fragment highlight-red">à émuler</span></p>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+void fdc_read_track(FDC_765 *self)
+{
+	int err;
+	FLOPPY_DRIVE *fd;
+
+	self->fdc_st0 = self->fdc_st1 = self->fdc_st2 = 0;
+	self->fdc_lastidread = 0;
+	
+	fdc_get_drive(self);	
+
+	fd = self->fdc_dor_drive[self->fdc_curunit];
+
+	self->fdc_exec_len = MAX_SECTOR_LEN;
+
+        if (!fdc_isready(self, fd)) err = FD_E_NOTRDY;
+	else err = fd_read_track(fd, 
+		self->fdc_cmd_buf[2], self->fdc_cmd_buf[3],
+		self->fdc_curhead,
+		self->fdc_exec_buf, 
+		&self->fdc_exec_len);
+
+	if (err) fdc_xlt_error(self, err);
+
+	fdc_results_7(self);
+	if (err && err != FD_E_DATAERR)
+	{
+		fdc_end_execution_phase(self);
+		fdc_result_interrupt(self);
+		return;
+	}
+
+        fdc_exec_interrupt(self);
+	self->fdc_mainstat = 0xF0;	/* Ready to transfer data */
+	self->fdc_exec_pos = 0;
+}
+        </code></pre>
+    </section>
+</section>
+<!-- [sous-système périphériques] end -->
+
+<!-- [l'emulateur] begin -->
+<section data-transition="convex" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h2>L'émulateur</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Ce qu'il est</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Un assemblage</span> <span class="fragment highlight-green">haute couture</span><br><span class="fragment highlight-red">des différents composants</span></p>
+        <p><img class="r-frame large-image" src="assets/images/computer/Amstrad_CPC_464.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>La boucle principale</h3>
+        <p class="fragment grow"><span class="fragment highlight-blue">Keep</span> <span class="fragment highlight-green">It</span> <span class="fragment highlight-red">Simple Stupid</span></p>
+        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+void Emulator::run()
+{
+    _frameAbsoluteTime = now();
+    _skipNextFrame = false;
+    while(_isRunning) {
+        _cpu.run(cpu_ticks);
+        _vdp.run(vdp_ticks);
+        _psg.run(psg_ticks);
+        _peripherals.run();
+        _input.read();
+        blitVideo();
+        playAudio();
+        _frameAbsoluteTime += _frameDuration;
+        if(wait(_frameAbsoluteTime) == false) {
+            _skipNextFrame = true;
+        }
+        else {
+            _skipNextFrame = false;
+        }
+    }
+}
+        </code></pre>
+    </section>
+</section>
+<!-- [l'émulateur] end -->
+
+<!-- [les microprocesseurs] begin -->
+<section data-transition="convex" data-autoslide="4000" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide" data-autoslide="0">
+        <h2>Pour conclure</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Jurassic_Sparc.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>MOS 6502</h3>
+        <p><small>CISC 8-bit</small></p>
+        <p class="tiny-text">(release date : 1975)</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/MOS_6502.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>MOS 6507</h3>
+        <p><small>CISC 8-bit</small></p>
+        <p class="tiny-text">(release date : 1975)</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/MOS_6507.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Zilog Z80</h3>
+        <p><small>CISC 8-bit</small></p>
+        <p class="tiny-text">(release date : 1976)</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/Zilog_Z80.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Motorola 68000</h3>
+        <p><small>CISC 16/32-bit</small></p>
+        <p class="tiny-text">(release date : 1979)</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/Motorola_68000.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Intel 8088</h3>
+        <p><small>CISC 16-bit</small></p>
+        <p class="tiny-text">(release date : 1979)</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/Intel_8088.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>MOS 65C816</h3>
+        <p><small>CISC 8/16-bit</small></p>
+        <p class="tiny-text">(release date : 1983)</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/MOS_65C816.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>MIPS R3000</h3>
+        <p><small>RISC 32-bit</small></p>
+        <p class="tiny-text">(release date : 1988)</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/MIPS_R3000.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>MIPS R4000</h3>
+        <p><small>RISC 64-bit</small></p>
+        <p class="tiny-text">(release date : 1991)</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/MIPS_R4000.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>DEC Alpha AXP 21064</h3>
+        <p><small>RISC 64-bit</small></p>
+        <p class="tiny-text">(release date : 1991)</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/DEC_Alpha_AXP_21064.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>IBM PowerPC 601</h3>
+        <p><small>RISC 32-bit</small></p>
+        <p class="tiny-text">(release date : 1992)</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/IBM_PowerPC_601.png"></p>
+    </section>
+    <section data-transition="slide">
+        <h3>Sun UltraSPARC</h3>
+        <p><small>RISC 64-bit</small></p>
+        <p class="tiny-text">(release date : 1995)</p>
+        <p><img class="r-frame large-image" src="assets/images/cpu/Sun_UltraSPARC.png"></p>
+    </section>
+    <section data-transition="slide" data-autoslide="0">
+        <h3>Quelle aventure !</h3>
+        <p class="fragment fade-up green-text">C'EST PASSIONNANT</p>
+        <p class="fragment fade-up green-text">C'EST [TRÈS] FORMATEUR</p>
+    </section>
+</section>
+<!-- [les microprocesseurs] end -->
+
+<!-- [qui suis-je ?] begin -->
+<section data-transition="zoom" data-autoslide="0" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide">
+        <h3>Olivier Poncet</h3>
+        <p><img class="r-frame small-image" src="assets/images/misc/Amstrad.png"></p>
+        <table class="about">
+            <tr>
+                <td><i class="fas fa-globe color-website"></i> emaxilde.net</td>
+                <td>🕹️ www.xcpc-emulator.net</td>
+            </tr>
+            <tr>
+                <td><i class="fab fa-twitter color-twitter"></i> @ponceto91</td>
+                <td><i class="fab fa-github color-github"></i> github.com/ponceto/</td>
+            </tr>
+            <tr>
+                <td><i class="fab fa-twitch color-twitch"></i> @ponceto91</td>
+                <td><i class="fab fa-gitlab color-gitlab"></i> gitlab.com/ponceto/</td>
+            </tr>
+            <tr>
+                <td><i class="fab fa-youtube color-youtube"></i> @ponceto91</td>
+                <td><i class="fab fa-bitbucket color-bitbucket"></i> bitbucket.org/ponceto/</td>
+            </tr>
+        </table>
+    </section>
+</section>
+<!-- [qui suis-je ?] end -->
+
+<!-- [merci] begin -->
+<section data-transition="zoom" data-autoslide="4000" data-background="assets/images/misc/Jurassic_Sparc_Dark.png" data-background-transition="slide">
+    <section data-transition="slide" data-autoslide="0">
+        <h2>Merci</h2>
+        <p><img class="r-frame large-image" src="assets/images/misc/Amstrad.png"></p>
+    </section>
+</section>
+<!-- [merci] end -->
+
+            </div>
+        </div>
+        <script src="vendor/reveal.js/dist/reveal.js"></script>
+        <script src="vendor/reveal.js/plugin/zoom/zoom.js"></script>
+        <script src="vendor/reveal.js/plugin/notes/notes.js"></script>
+        <script src="vendor/reveal.js/plugin/search/search.js"></script>
+        <script src="vendor/reveal.js/plugin/markdown/markdown.js"></script>
+        <script src="vendor/reveal.js/plugin/highlight/highlight.js"></script>
+        <script src="vendor/custom/js/custom.js"></script>
+        <script>
+            Reveal.initialize({
+                width: 1280,
+                height: 768,
+                controls: true,
+                progress: true,
+                center: true,
+                hash: true,
+                plugins: [ RevealZoom, RevealNotes, RevealSearch, RevealMarkdown, RevealHighlight ]
+            });
+            Reveal.configure({
+                keyboard: {
+                    38: 'prev',
+                    40: 'next',
+                }
+            });
+        </script>
+    </body>
+</html>
