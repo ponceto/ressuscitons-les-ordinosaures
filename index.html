@@ -288,7 +288,7 @@
     </section>
     <section data-transition="slide">
         <h3>La RAM / La ROM</h3>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 class RamBank
 {
 public: // public interface
@@ -325,7 +325,7 @@ protected: // protected data
     </section>
     <section data-transition="slide">
         <h3>Les drapeaux</h3>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 struct Z80_Flags
 {
     static constexpr uint8_t SF = 0x80; /* sign                   */
@@ -342,7 +342,7 @@ struct Z80_Flags
     </section>
     <section data-transition="slide">
         <h3>Les drapeaux internes</h3>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 struct Z80_InternalFlags
 {
     static constexpr uint8_t HAS_HLT  = 0x80; /* cpu is halted          */
@@ -358,7 +358,7 @@ struct Z80_InternalFlags
     </section>
     <section data-transition="slide">
         <h3>Modélisation d'un registre</h3>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 struct Z80_Register
 {
     union
@@ -378,7 +378,7 @@ struct Z80_Register
     </section>
     <section data-transition="slide">
         <h3>Modélisation de l'état</h3>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 struct Z80_State
 {
     struct
@@ -407,22 +407,27 @@ struct Z80_State
     </section>
     <section data-transition="slide">
         <h3>Modélisation de l'interface</h3>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 class Z80_Interface
 {
 public: // public interface
     virtual uint8_t z80_mreq_m1(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
+
     virtual uint8_t z80_mreq_rd(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
+
     virtual uint8_t z80_mreq_wr(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
+
     virtual uint8_t z80_iorq_m1(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
+
     virtual uint8_t z80_iorq_rd(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
+
     virtual uint8_t z80_iorq_wr(Z80_Processor&, const uint16_t address, const uint8_t data) = 0;
 };
         </code></pre>
     </section>
     <section data-transition="slide">
         <h3>Modélisation du processeur</h3>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 class Z80_Processor
 {
 public: // public interface
@@ -454,7 +459,7 @@ protected: // protected data
     <section data-transition="slide">
         <h3>L'interpreteur</h3>
         <p class="fragment grow highlight-yellow">Cette technique est la plus simple à mettre en oeuvre</p>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 void Z80_Processor::run()
 {
     const uint8_t opcode = _interface.z80_mreq_m1(*this, _state.registers.PC.u.word.l++, 0x00);
@@ -486,7 +491,7 @@ void Z80_Processor::run()
     <section data-transition="slide">
         <h3>La translation statique de code</h3>
         <p class="fragment grow highlight-yellow">Cette technique combine un interpreteur et un recompilateur statique</p>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 void Z80_Processor::recompile(InputBlock& guest, BasicBlock& host)
 {
     switch(guest.read()) {
@@ -494,13 +499,9 @@ void Z80_Processor::recompile(InputBlock& guest, BasicBlock& host)
             host.emit_nop(guest.address(), 1, 4);
             break;
         // ....
-        // ....
-        // ....
         case 0x78: // ld a,b
             host.emit_mov(guest.address(), REG_A, REG_B, 1, 4);
             break;
-        // ....
-        // ....
         // ....
         default:
             break;
@@ -530,7 +531,7 @@ void Z80_Processor::run();
     <section data-transition="slide">
         <h3>La translation dynamique de code</h3>
         <p class="fragment grow highlight-yellow">Cette technique combine un interpreteur et un recompilateur dynamique</p>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 void Z80_Processor::run();
 {
     // on récupère la prochaine addresse
@@ -590,7 +591,7 @@ void Z80_Processor::run();
     <section data-transition="slide">
         <h3>Des composants simples</h3>
         <p class="fragment grow"><span class="fragment highlight-blue">Ce sont</span> <span class="fragment highlight-green">de simples</span> <span class="fragment highlight-red">machines à états</span></p>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 void mc6845_clock(MC6845* mc6845)
 {
   int old_h_sync = mc6845->h_sync;
@@ -639,7 +640,7 @@ void mc6845_clock(MC6845* mc6845)
     <section data-transition="slide">
         <h3>Le blitter</h3>
         <p class="fragment grow"><span class="fragment highlight-blue">Permet de générer l'image</span><br><span class="fragment highlight-green">de l'invité</span> <span class="fragment highlight-red">vers l'hôte</span></p>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 static void amstrad_cpc_paint_08bpp(AMSTRAD_CPC_EMULATOR *self)
 {
   XcpcBlitter *blitter = self->blitter;
@@ -923,7 +924,7 @@ static void amstrad_cpc_paint_08bpp(AMSTRAD_CPC_EMULATOR *self)
     <section data-transition="slide">
         <h3>Des composants simples</h3>
         <p class="fragment grow"><span class="fragment highlight-blue">Ce sont</span> <span class="fragment highlight-green">de simples</span> <span class="fragment highlight-red">machines à états</span></p>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 void ay8910_device::sound_stream_update(sound_stream &stream, stream_sample_t **inputs, stream_sample_t **outputs, int samples)
 {
 	stream_sample_t *buf[NUM_CHANNELS];
@@ -1149,7 +1150,7 @@ void ay8910_device::sound_stream_update(sound_stream &stream, stream_sample_t **
     <section data-transition="slide">
         <h3>Des composants variés</h3>
         <p class="fragment grow"><span class="fragment highlight-blue">Ils sont</span> <span class="fragment highlight-green">de simples à moyennement difficiles</span> <span class="fragment highlight-red">à émuler</span></p>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 void fdc_read_track(FDC_765 *self)
 {
 	int err;
@@ -1204,7 +1205,7 @@ void fdc_read_track(FDC_765 *self)
     <section data-transition="slide">
         <h3>La boucle principale</h3>
         <p class="fragment grow"><span class="fragment highlight-blue">Keep</span> <span class="fragment highlight-green">It</span> <span class="fragment highlight-red">Simple Stupid</span></p>
-        <pre data-id="code-animation"><code class="cpp hljs" data-trim data-line-numbers>
+        <pre data-id="code-animation"><code class="cpp hljs custom-code" data-trim data-line-numbers>
 void Emulator::run()
 {
     _frameAbsoluteTime = now();
