@@ -142,3 +142,10 @@ table.about td {
 .is-justified {
     text-align: justify !important;
 }
+
+.custom-code {
+    line-height: normal !important;
+    font-size: 14px !important;
+    min-height: 512px !important;
+    max-height: 1080px !important;
+}
